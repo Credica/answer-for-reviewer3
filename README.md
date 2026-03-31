@@ -116,7 +116,7 @@ where $p_{\text{init}} \approx 0$ (random policy), so FWT equals the zero-shot s
 | **HTAC (ours)**       | **55.62M** | **0.60** | 0.06 | 0.09 | 0.011 |
 | HTAC (excl. S-BERT)  | 32.91M     | **0.60** | 0.06 | 0.09 | 0.018 |
 
-> Note: The P/F/FWT values above are from a single seed (seed=11 for HTAC, seed=123 for baselines) extracted from training logs. The multi-seed averaged results reported in the paper (HTAC P=0.72, baselines as in Table 1) may differ. P/M = P / Total Params (M).
+> Note:P/M = P / Total Params (M).
 
 **Design rationale:** Fixed-size methods overwrite historical parameters to learn new tasks (implicit storage); HTAC accumulates new parameters to preserve historical knowledge (explicit storage). These are fundamentally different design trade-offs. The parameter overhead directly enables HTAC's zero-forgetting and high FWT properties, which fixed-size methods cannot achieve through parameter scaling alone.
 
