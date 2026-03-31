@@ -3,9 +3,6 @@
 
 ## Table 1: Task Order Robustness — Full Results (OCW-10, 3 Seeds)
 
-Task arrival orders used in the experiments:
-
-
 | Order | Task Sequence (T1 → T10)                                                                                                                                  |
 | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0     | hammer-v2, push-wall-v2, faucet-close-v2, push-back-v2, stick-pull-v2, handle-press-side-v2, push-v2, shelf-place-v2, window-close-v2, peg-unplug-side-v2 |
@@ -32,35 +29,16 @@ Task arrival orders used in the experiments:
 | **Ours** | **HTAC**   | **0.72±0.04** | **0.72±0.02** | **0.70±0.03** | **0.69±0.03** | **0.71** |
 
 
-**Analysis:** HTAC achieves the highest average performance  across all 4 task orderings with minimal variance . Structural baselines show more order-sensitive variance, particularly Grow. Regularization methods all remain below 0.30. The consistent performance of HTAC confirms that the hierarchical domain/task expert structure and on-demand creation mechanism are robust to task arrival order.
+
 
 ---
 
 ## Table 2: FWT Decomposition on OCW-20 (HTAC, 3 Seeds)
-
-**FWT Formula:**
-$$\text{FWT} = \frac{1}{K-1}\sum_{i=2}^{K}\bigl(p_i((i-1)\cdot\delta) - p_i(0)\bigr)$$
-
-where $p_i((i-1)\cdot\delta)$ denotes the zero-shot performance on task $i$ evaluated after training on task $i-1$, and $p_i(0)$ is the performance under random initialization. Since $p_i(0) \approx 0$ for all tasks, FWT reduces to the average zero-shot success rate on each unseen task.
-
-**OCW-20 Structure:**
-
-- **Tasks 1→10 (True Forward Transfer):** Task $i+1$ is a *never-before-seen* task during step $i$'s training.
-- **Tasks 11→20 (Knowledge Activation):** Task $i+1$ is a *repeated task* already learned in round 1. This captures the system's ability to reactivate frozen historical experts.
-
-
 | Component       | Avg.            | Interpretation                               |
 | --------------- | --------------- | -------------------------------------------- |
 | Tasks 1→10 FWT  | 0.018±0.019     | Transfer to genuinely novel tasks            |
 | Tasks 11→20 FWT | **0.700±0.016** | Automatic reactivation of historical experts |
 | **Overall FWT** | **0.39±0.04**   | Composite of both capabilities               |
-
-
-**Detailed Analysis:**
-
-- **Tasks 1→10:** OCW-10 spans fundamentally distinct operations (push, grasp, rotate, peg), making large-scale task generalization inherently difficult. The positive value indicates domain experts do encode transferable coarse-grained knowledge.
-- **Tasks 11→20:** When the system encounters semantically identical tasks in round 2, the domain prototype identifies the match (S-BERT similarity > τ), the warmup evaluation confirms viability (success rate > θ), and the frozen round-1 expert is directly deployed without fine-tuning . This achieves near-perfect knowledge reactivation.
-- The high Tasks 11→20 FWT significantly outperforms all baseline methods, which lack an explicit knowledge routing mechanism and must either retrain or rely on implicit parameter retention.
 
 ---
 
@@ -73,12 +51,6 @@ where $p_i((i-1)\cdot\delta)$ denotes the zero-shot performance on task $i$ eval
 | F ↓    | 0.01±0.02 | 0.00±0.02 | −0.00±0.03 | **−0.04±0.02**    | −0.02±0.02 | −0.01±0.03 |
 | FWT ↑  | 0.33±0.03 | 0.35±0.05 | 0.35±0.05  | **0.39±0.04**     | 0.37±0.03  | 0.37±0.03  |
 
-
-**Analysis:**
-
-- Over a wide range θ∈[0.6, 1.0], P consistently remains ≥0.70 with low forgetting, indicating strong hyperparameter robustness.
-- **Degradation at θ=0.5:** Most tasks already exceed this low threshold during warmup, forcing expert reuse even when the match is suboptimal. This reduces task-specific knowledge coverage and degrades performance.
-- θ=0.8 achieves the optimal balance: strict enough to prevent premature reuse, permissive enough to enable knowledge activation for semantically similar tasks.
 
 ---
 
@@ -95,11 +67,6 @@ where $p_i((i-1)\cdot\delta)$ denotes the zero-shot performance on task $i$ eval
 | 6             | 0.67±0.02     | −0.02±0.03     | 0.00±0.00     |
 
 
-**Analysis:**
-
-- **D too small (1–3):** Intra-domain task diversity becomes too large. Domain experts cannot focus on consistent shared structure, leading to increased forgetting  and reduced performance.
-- **D too large (5–6):** Too few tasks per domain undermines the hierarchical sharing benefit. With only 1–2 tasks per domain, domain experts converge to task-specific rather than domain-level representations.
-- **D=4 (optimal):** Matches the 4 natural manipulation primitive categories in OCW-10 (push, grasp, rotate, peg), achieving the best balance between cross-domain knowledge sharing and intra-domain consistency.
 
 ---
 
@@ -124,7 +91,7 @@ where $p_i((i-1)\cdot\delta)$ denotes the zero-shot performance on task $i$ eval
 **Baseline Comparison (OCW-10)**
 
 
-| Method              | Total Params | P (CW-10) | F     | FWT   | P/M   |
+| Method              | Total Params | P (CW-10) | F     | FWT   | P/M（P / Total Params (M)）   |
 | ------------------- | ------------ | --------- | ----- | ----- | ----- |
 | Finetuning          | 5.02M        | 0.12      | 0.73  | 0.02  | 0.024 |
 | L2                  | 5.02M        | 0.23      | 0.00  | −0.01 | 0.046 |
@@ -142,8 +109,3 @@ where $p_i((i-1)\cdot\delta)$ denotes the zero-shot performance on task $i$ eval
 | HTAC (excl. S-BERT) | 32.91M       | **0.60**  | 0.06  | 0.09  | 0.018 |
 
 
-> Note: P/M = P / Total Params (M).
-
-**Design rationale:** Fixed-size methods overwrite historical parameters to learn new tasks ; HTAC accumulates new parameters to preserve historical knowledge . These are fundamentally different design trade-offs. The parameter overhead directly enables HTAC's zero-forgetting and high FWT properties, which fixed-size methods cannot achieve through parameter scaling alone.
-
-**Scalability:** With T tasks, HTAC's parameter count grows as O(T) in the worst case. However, the warmup mechanism enables expert reuse, so actual growth is typically sub-linear (some tasks share experts). Future work will explore LoRA-based lightweight experts to reduce per-task parameter footprint while preserving the hierarchical structure's benefits.
