@@ -1,4 +1,4 @@
-# supplementary material-for-reviewer3
+# Supplementary Material for Reviewer3
 ---
 
 ## Table 1: Task Order Robustness — Full Results (OCW-10, 3 Seeds)
