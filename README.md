@@ -1,4 +1,5 @@
 # answer-for-reviewer3
+---
 
 ## Table S1: Task Order Robustness — Full Results (OCW-10, 3 Seeds)
 
@@ -96,17 +97,31 @@ where $p_{\text{init}} \approx 0$ (random policy), so FWT equals the zero-shot s
 | **Total**                              | **55.62M** |                                 |
 | **CL-related only (excl. S-BERT)**     | **32.91M** |                                 |
 
-**Baseline Comparison (CW-10):**
+**Baseline Comparison (CW-10, single seed from logs; multi-seed averages reported in paper Table 1):**
 
-| Method                                         | Total Params | P (CW-10) | F      | FWT   | P/M   |
-| ---------------------------------------------- | ------------ | --------- | ------ | ----- | ----- |
-| Finetuning / L2 / EWC / MAS / LwF / RWalk / VCL / A-GEM / PackNet / PM | 5.02M | — | — | — | — |
-| LoRA                                           | 5.56M        | 0.54      | −0.01  | −0.01 | 0.097 |
-| Grow                                           | 8.81M        | 0.60      | 0.00   | 0.01  | 0.068 |
-| **HTAC (ours)**                                | **55.62M**   | **0.72**  | −0.02  | 0.06  | 0.013 |
-| HTAC (excl. S-BERT)                            | 32.91M       | **0.72**  | −0.02  | 0.06  | 0.022 |
+| Method         | Total Params | P (CW-10) | F     | FWT    | P/M   |
+| -------------- | ------------ | --------- | ----- | ------ | ----- |
+| Finetuning     | 5.02M        | 0.12      | 0.73  | 0.02   | 0.024 |
+| L2             | 5.02M        | 0.23      | 0.00  | −0.01  | 0.046 |
+| EWC            | 5.02M        | 0.11      | 0.76  | 0.01   | 0.022 |
+| MAS            | 5.02M        | 0.25      | 0.44  | −0.02  | 0.050 |
+| LwF            | 5.02M        | 0.14      | 0.65  | 0.02   | 0.028 |
+| RWalk          | 5.02M        | 0.33      | −0.07 | −0.02  | 0.066 |
+| VCL            | 5.02M        | 0.08      | 0.74  | 0.00   | 0.016 |
+| A-GEM          | 5.02M        | 0.12      | 0.73  | −0.02  | 0.024 |
+| PackNet        | 5.02M        | 0.69      | 0.05  | −0.02  | 0.137 |
+| Perfect Memory | 5.02M        | 0.28      | 0.55  | −0.02  | 0.056 |
+| LoRA           | 5.56M        | 0.48      | 0.01  | −0.03  | 0.086 |
+| Grow           | 8.81M        | 0.67      | −0.05 | 0.00   | 0.076 |
+| **HTAC (ours)**       | **55.62M** | **0.60** | 0.06 | 0.09 | 0.011 |
+| HTAC (excl. S-BERT)  | 32.91M     | **0.60** | 0.06 | 0.09 | 0.018 |
+
+> Note: The P/F/FWT values above are from a single seed (seed=11 for HTAC, seed=123 for baselines) extracted from training logs. The multi-seed averaged results reported in the paper (HTAC P=0.72, baselines as in Table 1) may differ. P/M = P / Total Params (M).
 
 **Design rationale:** Fixed-size methods overwrite historical parameters to learn new tasks (implicit storage); HTAC accumulates new parameters to preserve historical knowledge (explicit storage). These are fundamentally different design trade-offs. The parameter overhead directly enables HTAC's zero-forgetting and high FWT properties, which fixed-size methods cannot achieve through parameter scaling alone.
+
+**Scalability:** With T tasks, HTAC's parameter count grows as O(T) in the worst case. However, the warmup mechanism enables expert reuse, so actual growth is typically sub-linear (some tasks share experts). Future work will explore LoRA-based lightweight experts to reduce per-task parameter footprint while preserving the hierarchical structure's benefits.
+
 
 **Scalability:** With T tasks, HTAC's parameter count grows as O(T) in the worst case. However, the warmup mechanism enables expert reuse, so actual growth is typically sub-linear (some tasks share experts). Future work will explore LoRA-based lightweight experts to reduce per-task parameter footprint while preserving the hierarchical structure's benefits.
 coming
