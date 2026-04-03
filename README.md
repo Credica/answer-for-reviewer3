@@ -6,7 +6,7 @@
     <tr>
       <th>Domain</th>
       <th>Tasks</th>
-      <th>#</th>
+      <th># Tasks</th>
       <th>Simulator</th>
       <th>State Dim</th>
       <th>Action Dim</th>
@@ -47,7 +47,7 @@
     </tr>
     <tr>
       <td><strong>Note</strong></td>
-      <td colspan="5">Compared to OCW, D4RL-CL-10 poses three additional challenges: <strong>heterogeneous state/action spaces</strong> (state dim spans 11→60, requiring zero-padding), <strong>diverse simulators</strong> (4 physically distinct engines vs. OCW's unified MuJoCo), and <strong>different evaluation metric</strong> (Normalized Score replacing success rate).</td>
+      <td colspan="5">Compared to OCW, D4RL-CL-10 poses three additional challenges: <strong>heterogeneous state/action spaces</strong> (state dim spans 11→60), <strong>diverse simulators</strong> (4 physically distinct engines vs. OCW's unified MuJoCo).</td>
     </tr>
   </tbody>
 </table>
