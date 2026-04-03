@@ -18,7 +18,7 @@
   <tbody>
     <tr>
       <td>Locomotion</td>
-      <td>hopper / halfcheetah / walker2d (medium-expert-v2)</td>
+      <td>hopper / halfcheetah / walker2d </td>
       <td>3</td>
       <td>MuJoCo</td>
       <td>11–17</td>
