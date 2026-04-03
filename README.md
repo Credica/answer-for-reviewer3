@@ -1,5 +1,8 @@
 # Supplementary Material for Reviewer3
 ---
+## Round2
+---
+## Round2-Table 1: D4RL-CL-10 Benchmark Overview
 
 <table>
   <thead>
@@ -54,16 +57,32 @@
 
 ---
 
+## Round2-Table 2:Task Training Order & Natural Language Descriptions
+
+| Step | Task | Domain | Data Size | Natural Language Description |
+|---|---|---|---|---|
+| T1 | hopper-medium-expert-v2 | Locomotion | 2000 eps | Hop forward with a single-legged robot while maintaining upright balance using a mixture of medium and expert hopping strategies. |
+| T2 | pen-cloned-v1 | Dexterous | 2000 eps | Twirl and rotate a pen to a target orientation using a dexterous robotic hand, learned from a cloned behavioral policy with added exploration noise. |
+| T3 | kitchen-partial-v0 | Kitchen | 613 eps | Complete a subset of kitchen manipulation subtasks including moving the kettle and opening the microwave in a simulated kitchen. |
+| T4 | halfcheetah-medium-expert-v2 | Locomotion | 2000 eps | Run forward as fast as possible with a six-legged cheetah robot using a mixture of medium and expert locomotion policies. |
+| T5 | door-cloned-v1 | Dexterous | 2000 eps | Open a door by grasping and turning the handle with a dexterous robotic hand, learned from a cloned behavioral policy with added exploration noise. |
+| T6 | antmaze-umaze-v0 | Navigation | 2000 eps | Control a four-legged ant robot to navigate through a simple U-shaped maze to reach a fixed goal position. |
+| T7 | walker2d-medium-expert-v2 | Locomotion | 2000 eps | Walk forward with a bipedal two-legged robot while keeping balance using a mixture of medium and expert walking gaits. |
+| T8 | pen-human-v1 | Dexterous | 50 eps | Twirl and rotate a pen to a target orientation using a dexterous robotic hand, learned from human teleoperation demonstrations. |
+| T9 | kitchen-complete-v0 | Kitchen | 19 eps | Complete all four kitchen manipulation subtasks: move kettle, open microwave, toggle light switch, and slide cabinet in a simulated kitchen environment. |
+| T10 | door-human-v1 | Dexterous | 33 eps | Open a door by grasping and turning the handle with a dexterous robotic hand, learned from human teleoperation demonstrations. |
+
+---
 
 
 
 
 
+## Round1
+---
 
 
-
-
-## Table 1: Task Order Robustness — Full Results (OCW-10, 3 Seeds)
+## Round1-Table 1: Task Order Robustness — Full Results (OCW-10, 3 Seeds)
 
 | Order | Task Sequence (T1 → T10)                                                                                                                                  |
 | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,7 +114,7 @@
 
 ---
 
-## Table 2: FWT Decomposition on OCW-20 (HTAC, 3 Seeds)
+## Round1-Table 2: FWT Decomposition on OCW-20 (HTAC, 3 Seeds)
 | Component       | Avg.            | Interpretation                               |
 | --------------- | --------------- | -------------------------------------------- |
 | Tasks 1→10 FWT  | 0.018±0.019     | Transfer to genuinely novel tasks            |
@@ -104,7 +123,7 @@
 
 ---
 
-## Table 3: Threshold θ Sensitivity Analysis (OCW-20, 3 Seeds)
+## Round1-Table 3: Threshold θ Sensitivity Analysis (OCW-20, 3 Seeds)
 
 
 | Metric | θ=0.5     | θ=0.6     | θ=0.7      | **θ=0.8 (paper)** | θ=0.9      | θ=1.0      |
@@ -116,7 +135,7 @@
 
 ---
 
-## Table 4: Domain Number D Ablation (OCW-10, 3 Seeds)
+## Round1-Table 4: Domain Number D Ablation (OCW-10, 3 Seeds)
 
 
 | D ( Domains) | P ↑           | F ↓            | FWT ↑         |
@@ -132,7 +151,7 @@
 
 ---
 
-## Table 5: HTAC Parameter Breakdown (CW-10)
+## Round1-Table 5: HTAC Parameter Breakdown (CW-10)
 
 
 | Component                            | Parameters | Notes                              |
@@ -150,7 +169,7 @@
 | **CL-related only (excl. S-BERT)**   | **32.91M** |                                    |
 
 
-**Baseline Comparison (OCW-10)**
+**Round1-Baseline Comparison (OCW-10)**
 
 
 | Method              | Total Params | P (CW-10) | F     | FWT   | P/M（P / Total Params (M)）   |
