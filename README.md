@@ -1,6 +1,68 @@
 # Supplementary Material for Reviewer3
 ---
 
+<table>
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th>Tasks</th>
+      <th>#</th>
+      <th>Simulator</th>
+      <th>State Dim</th>
+      <th>Action Dim</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Locomotion</td>
+      <td>hopper / halfcheetah / walker2d (medium-expert-v2)</td>
+      <td>3</td>
+      <td>MuJoCo</td>
+      <td>11–17</td>
+      <td>3–6</td>
+    </tr>
+    <tr>
+      <td>Dexterous</td>
+      <td>pen-cloned/human-v1, door-cloned/human-v1</td>
+      <td>4</td>
+      <td>Adroit</td>
+      <td>45</td>
+      <td>24–28</td>
+    </tr>
+    <tr>
+      <td>Kitchen</td>
+      <td>kitchen-partial-v0, kitchen-complete-v0</td>
+      <td>2</td>
+      <td>Franka Kitchen</td>
+      <td>60</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>Navigation</td>
+      <td>antmaze-umaze-v0</td>
+      <td>1</td>
+      <td>AntMaze</td>
+      <td>29</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td><strong>Note</strong></td>
+      <td colspan="5">Compared to OCW, D4RL-CL-10 poses three additional challenges: <strong>heterogeneous state/action spaces</strong> (state dim spans 11→60, requiring zero-padding), <strong>diverse simulators</strong> (4 physically distinct engines vs. OCW's unified MuJoCo), and <strong>different evaluation metric</strong> (Normalized Score replacing success rate).</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+
+
+
+
+
+
+
+
+
 ## Table 1: Task Order Robustness — Full Results (OCW-10, 3 Seeds)
 
 | Order | Task Sequence (T1 → T10)                                                                                                                                  |
