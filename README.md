@@ -6,7 +6,7 @@
     <tr>
       <th>Domain</th>
       <th>Tasks</th>
-      <th># Tasks</th>
+      <th>Number</th>
       <th>Simulator</th>
       <th>State Dim</th>
       <th>Action Dim</th>
